@@ -1,3 +1,7 @@
+"use client";
+
+import { ToggleTheme } from "./ToggleTheme";
+
 export default function TopNav() {
-  return <div>TopNav</div>;
+  return <ToggleTheme />;
 }
