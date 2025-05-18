@@ -1,3 +1,7 @@
 export default function SideNav() {
-  return <div>SideNav</div>;
+  const sideLinks = {
+    href: "",
+    label: "",
+  };
+  return <div>{sideLinks.label}</div>;
 }
