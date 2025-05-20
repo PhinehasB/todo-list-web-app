@@ -16,7 +16,9 @@ export default function DashboardLayout({
       <TopNav />
       <div className="flex">
         <SideNav />
-        <section className="p-10 border-l border-t w-full">{children}</section>
+        <section className="p-10 border-l border-t w-full overflow-y-auto h-[92vh]">
+          {children}
+        </section>
       </div>
     </main>
   );

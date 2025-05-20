@@ -1,3 +1,6 @@
+import dummyTasks from "@/app/data/dummyTasks";
+import { TaskType } from "@/app/Types/TaskTypes";
+import RadialChart from "@/components/RadialChart";
 import TaskCard from "@/components/TaskCard";
 import {
   CalendarCheck,
@@ -5,6 +8,8 @@ import {
   CalendarClock,
   Plus,
 } from "lucide-react";
+
+type newTaskType = Omit<TaskType, "vital">;
 
 export default function page() {
   return (
@@ -24,7 +29,19 @@ export default function page() {
               <Plus className="text-red-400" /> <p>Add Task</p>
             </div>
           </div>
-          <TaskCard />
+          <div className="overflow-y-auto h-[72vh] flex flex-col gap-2">
+            {dummyTasks.map((task: newTaskType) => (
+              <TaskCard
+                key={task.title}
+                Description={task.Description}
+                createdAt={task.createdAt}
+                priority={task.priority}
+                status={task.status}
+                thumbnail={task.thumbnail}
+                title={task.title}
+              />
+            ))}
+          </div>
         </div>
         <div className="flex flex-col gap-2 h-full">
           <div className="rounded-md shadow p-3 border flex-1">
@@ -32,16 +49,29 @@ export default function page() {
             <div className="flex gap-1 mb-3">
               <CalendarCheck2 className="text-red-400" /> <p>Task Status</p>
             </div>
-            <p>Card goes here</p>
+            <div>
+              <RadialChart />
+            </div>
           </div>
           <div className="rounded-md shadow p-3 border flex-1">
             {" "}
             <div className="flex gap-1 mb-3">
               <CalendarCheck className="text-red-400" /> <p>Task Completed</p>
             </div>
-            <div className="flex flex-col gap-3">
-              <TaskCard />
-              <TaskCard />
+            <div className="flex flex-col gap-2 overflow-y-auto h-[32vh]">
+              {dummyTasks
+                .filter((task) => task.status === "Completed")
+                .map((task) => (
+                  <TaskCard
+                    key={task.title}
+                    Description={task.Description}
+                    createdAt={task.createdAt}
+                    priority={task.priority}
+                    status={task.status}
+                    thumbnail={task.thumbnail}
+                    title={task.title}
+                  />
+                ))}
             </div>
           </div>
         </div>
