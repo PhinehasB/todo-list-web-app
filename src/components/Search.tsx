@@ -6,15 +6,19 @@ import { Input } from "./ui/input";
 export default function Search() {
   return (
     <div className="flex">
-      <Input type="search" className="w-lg" />
+      <Input
+        type="search"
+        placeholder="Search your task here..."
+        className="w-lg h-12"
+      />
       <Button
         variant="ghost"
-        size="sm"
-        className="-translate-x-9.5 translate-y-0.5"
+        size="lg"
+        className="-translate-x-12.5 translate-y-0.5 h-11"
         // onClick={() => toast.success("Item searched")}
       >
         {" "}
-        <SearchIcon />
+        <SearchIcon className="m-0 h-10" />
       </Button>
     </div>
   );

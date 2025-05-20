@@ -9,7 +9,7 @@ import { Calendar } from "./ui/calendar";
 export default function TopNav() {
   const date = new Date();
   return (
-    <nav className="flex justify-between items-center h-14 px-14">
+    <nav className="flex justify-between items-center h-[8vh] px-14 shadow">
       <div className="text-3xl font-extrabold">
         <span className="text-red-400">Dash</span>
         <span>board</span>
@@ -21,9 +21,20 @@ export default function TopNav() {
 
       <div className="flex items-center justify-between gap-8">
         <div className="flex gap-3">
-          <CustomPopover trigger={<Bell />} content={<div>content here</div>} />
           <CustomPopover
-            trigger={<Calendar1Icon />}
+            trigger={
+              <div className="border rounded-md p-2 hover:text-black hover:bg-gray-100">
+                <Bell className="h-6" />
+              </div>
+            }
+            content={<div>content here</div>}
+          />
+          <CustomPopover
+            trigger={
+              <div className="border rounded-md p-2 hover:text-black hover:bg-gray-100">
+                <Calendar1Icon className="h-6" />
+              </div>
+            }
             content={
               <Calendar
                 mode="single"
