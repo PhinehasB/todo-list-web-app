@@ -8,10 +8,13 @@ import {
   RadialBarChart,
 } from "recharts";
 import { ChartConfig, ChartContainer } from "@/components/ui/chart";
+import { cn } from "@/lib/utils";
+import { TaskType } from "@/app/Types/TaskTypes";
 
-const chartData = [
-  { browser: "safari", visitors: 200, fill: "var(--color-safari)" },
-];
+type RadialChartType = Pick<TaskType, "status"> & {
+  count: number;
+  total: number;
+};
 
 const chartConfig = {
   visitors: {
@@ -19,31 +22,62 @@ const chartConfig = {
   },
   safari: {
     label: "Safari",
-    color: "hsl(var(--chart-2))",
+    // color: "hsl(var(--chart-4))",
   },
 } satisfies ChartConfig;
 
-export default function RadialChart() {
+export default function RadialChart({ status, count, total }: RadialChartType) {
+  const statusCheck = function () {
+    let color: string = "";
+    let bgColor: string = "";
+    switch (status) {
+      case "Completed":
+        color = "var(--chart-2)";
+        bgColor = "bg-[var(--chart-2)]";
+        break;
+      case "In progress":
+        color = "var(--chart-1)";
+        bgColor = "bg-[var(--chart-1)]";
+        break;
+      case "Not started":
+        color = "var(--chart-5)";
+        bgColor = "bg-[var(--chart-5)]";
+        break;
+      default:
+        color = "var(--chart-2)";
+        bgColor = "bg-[var(--chart-2)]";
+        break;
+    }
+    return {
+      color,
+      bgColor,
+    };
+  };
+
+  const chartData = [
+    { browser: "safari", visitors: count, fill: statusCheck().color },
+  ];
+
   return (
     <div>
       {" "}
       <ChartContainer
         config={chartConfig}
-        className="mx-auto aspect-square max-h-[250px]"
+        className="mx-auto aspect-square  max-h-[250px]"
       >
         <RadialBarChart
           data={chartData}
-          startAngle={0}
-          endAngle={250}
-          innerRadius={80}
-          outerRadius={110}
+          startAngle={90}
+          endAngle={(-270 * count) / total}
+          innerRadius={58}
+          outerRadius={90}
         >
           <PolarGrid
             gridType="circle"
             radialLines={false}
             stroke="none"
             className="first:fill-muted last:fill-background"
-            polarRadius={[86, 74]}
+            polarRadius={[62, 50]}
           />
           <RadialBar dataKey="visitors" background cornerRadius={10} />
           <PolarRadiusAxis tick={false} tickLine={false} axisLine={false}>
@@ -67,9 +101,9 @@ export default function RadialChart() {
                       <tspan
                         x={viewBox.cx}
                         y={(viewBox.cy || 0) + 24}
-                        className="fill-muted-foreground"
+                        className="fill-muted-foreground text-lg"
                       >
-                        Visitors
+                        {`/ ${total}`}
                       </tspan>
                     </text>
                   );
@@ -79,6 +113,12 @@ export default function RadialChart() {
           </PolarRadiusAxis>
         </RadialBarChart>
       </ChartContainer>
+      <div className="flex justify-center items-center gap-1">
+        <div
+          className={cn("rounded-full h-3 w-3", statusCheck().bgColor)}
+        ></div>
+        <p className="font-bold text-lg">{status}</p>
+      </div>
     </div>
   );
 }

@@ -12,11 +12,29 @@ import {
 type newTaskType = Omit<TaskType, "vital">;
 
 export default function page() {
+  const check: Array<Pick<TaskType, "status"> & { data: TaskType[] }> = [
+    {
+      status: "Completed",
+      data: dummyTasks.filter((task) => task.status === "Completed"),
+    },
+    {
+      status: "In progress",
+      data: dummyTasks.filter((task) => task.status === "In progress"),
+    },
+    {
+      status: "Not started",
+      data: dummyTasks.filter((task) => task.status === "Not started"),
+    },
+  ];
+
+  // console.log(check);
+
   return (
     <div>
       <span className=" font-bold text-2xl mb-5 flex gap-2">
         {" "}
         Welcome back, <p className="text-red-400">FirstName</p>
+        <span className="animate-pulse">👋</span>
       </span>
       <div className="grid grid-cols-2 rounded-md shadow p-3 border gap-2">
         <div className="rounded-md shadow p-3 border">
@@ -49,8 +67,17 @@ export default function page() {
             <div className="flex gap-1 mb-3">
               <CalendarCheck2 className="text-red-400" /> <p>Task Status</p>
             </div>
-            <div>
-              <RadialChart />
+            <div className=" grid grid-cols-3 items-center justify-between h-full w-full">
+              {check.map((info, _, allInfo) => (
+                <RadialChart
+                  key={info.status}
+                  status={info.status}
+                  count={info.data.length}
+                  total={allInfo.length}
+                />
+              ))}
+              {/* <RadialChart status="In progress" count={150} total={500} />
+              <RadialChart status="Not started" count={20} total={500} /> */}
             </div>
           </div>
           <div className="rounded-md shadow p-3 border flex-1">
