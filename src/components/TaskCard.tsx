@@ -1,3 +1,4 @@
+"use client";
 import { TaskType } from "@/app/Types/TaskTypes";
 import {
   Card,
@@ -7,8 +8,10 @@ import {
   CardTitle,
 } from "@/components/ui/card";
 import { cn } from "@/lib/utils";
-import { Circle } from "lucide-react";
+import { Circle, Ellipsis, Eye, SquarePen, Trash2 } from "lucide-react";
 import Image from "next/image";
+import CustomDropdown from "./CustomDropdown";
+import { toast } from "sonner";
 
 export default function TaskCard({
   Description,
@@ -31,8 +34,35 @@ export default function TaskCard({
       </div>
       <div className=" w-full">
         <CardHeader className="pl-0">
-          <CardTitle className="text-lg font-bold text-start">
+          <CardTitle className="text-lg font-bold text-start flex items-center justify-between">
             {title}
+            <CustomDropdown
+              trigger={
+                <Ellipsis className="hover:text-gray-300 cursor-pointer -translate-y-1" />
+              }
+              content={[
+                {
+                  menuLable: "Actions",
+                  menuItem: [
+                    {
+                      name: "View",
+                      icon: <Eye />,
+                      action: () => toast.success(` was Edited`),
+                    },
+                    {
+                      name: "Edit",
+                      icon: <SquarePen />,
+                      action: () => toast.success(` was Edited`),
+                    },
+                    {
+                      name: "Delete",
+                      icon: <Trash2 />,
+                      action: () => toast.success(` was Deleted`),
+                    },
+                  ],
+                },
+              ]}
+            />
           </CardTitle>
           <div className="flex">
             <CardDescription className="basis:124/23 xl:basis-69/23 2xl:basis-2/3">

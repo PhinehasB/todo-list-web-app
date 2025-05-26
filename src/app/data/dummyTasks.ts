@@ -7,7 +7,8 @@ const dummyTasks: TaskType[] = [
     priority: "Extreme",
     status: "In progress",
     createdAt: "2025-05-19T10:00:00Z",
-    Description: "Complete the final report for the project and submit it to the manager.",
+    Description:
+      "Complete the final report for the project and submit it to the manager.",
     vital: true,
   },
   {
