@@ -4,6 +4,6 @@ export type TaskType = {
   priority: "Extreme" | "Moderate" | "Low";
   status: "Completed" | "In progress" | "Not started";
   createdAt: string;
-  Description: string;
+  description: string;
   vital: boolean;
 };

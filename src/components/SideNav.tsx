@@ -12,16 +12,8 @@ export default function SideNav() {
       label: "Dashboard",
     },
     {
-      href: "/vital-task",
-      label: "Vital Task",
-    },
-    {
       href: "/my-task",
       label: "My Task",
-    },
-    {
-      href: "/task-categories",
-      label: "Task Categories",
     },
     {
       href: "/settings",

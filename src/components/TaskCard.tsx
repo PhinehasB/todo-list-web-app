@@ -14,7 +14,7 @@ import CustomDropdown from "./CustomDropdown";
 import { toast } from "sonner";
 
 export default function TaskCard({
-  Description,
+  description,
   createdAt,
   priority,
   status,
@@ -66,17 +66,17 @@ export default function TaskCard({
           </CardTitle>
           <div className="flex">
             <CardDescription className="basis:124/23 xl:basis-69/23 2xl:basis-2/3">
-              <p>{Description}</p>
+              <p>{description}</p>
             </CardDescription>
 
-            <div className="rounded-md border overflow-hidden 3xl:h-40  aspect-square basis-1\23 2xl:basis-1/3">
+            <div className="rounded-md border overflow-hidden 3xl:h-40  aspect-square h-[5rem] w-[17rem]  basis-1\23 2xl:basis-1/3">
               {typeof thumbnail === "string" ? (
                 <Image
                   src={thumbnail}
                   alt="@task image"
                   width={480}
                   height={240}
-                  className="aspect-square 3xl:h-40  object-cover object-center"
+                  className="aspect-square h-[5rem] w-[17rem]  3xl:h-40  object-cover object-center"
                 />
               ) : thumbnail instanceof File ? (
                 <Image
@@ -84,7 +84,7 @@ export default function TaskCard({
                   alt="@task image"
                   width={480}
                   height={240}
-                  className="aspect-square 3xl:h-40  object-cover object-center"
+                  className="aspect-square h-[5rem] w-[17rem]  3xl:h-40  object-cover object-center"
                 />
               ) : null}
             </div>
