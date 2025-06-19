@@ -1,9 +1,15 @@
 import { Hono } from "hono";
-import { db } from "../../../../db/config";
-import { tasksTable } from "@/db/schema";
+import { db } from "../../../../lib/db/config";
+import { tasksTable } from "@/lib/db/schema";
 import { eq } from "drizzle-orm";
+import { requireAuth } from "../middleware/auth-middleware";
+import { handleCreateTodo } from "../handlers/TaskHandler";
 
 const Tasks = new Hono();
+// eslint-disable-next-line react-hooks/rules-of-hooks
+Tasks.use("/*", requireAuth);
+
+Tasks.post("/", requireAuth, handleCreateTodo);
 
 Tasks.get("/", async (c) => {
   // const seedTasks = {

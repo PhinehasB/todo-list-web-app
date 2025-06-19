@@ -2,6 +2,7 @@ import { Hono } from "hono";
 import { handle } from "hono/vercel";
 import { AuthRoutes } from "./routes/AuthRoutes";
 import { TaskRoutes } from "./routes/TaskRoutes";
+// import { auth } from "@/lib/auth";
 
 export const runtime = "edge";
 
