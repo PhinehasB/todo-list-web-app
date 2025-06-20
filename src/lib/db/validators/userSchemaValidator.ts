@@ -1,5 +1,5 @@
 import { createInsertSchema } from "drizzle-zod";
-import { user } from "../authSchema";
+import { user } from "../schema/authSchema";
 import { z } from "zod/v4";
 
 const passwordValidation = new RegExp(

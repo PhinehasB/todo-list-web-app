@@ -4,12 +4,19 @@ import { tasksTable } from "@/lib/db/schema";
 import { eq } from "drizzle-orm";
 import { requireAuth } from "../middleware/auth-middleware";
 import { handleCreateTodo } from "../handlers/TaskHandler";
+import { createTodoSchemaValidator } from "@/lib/db/validators/todoSchemaValidator";
+import { zValidator } from "@hono/zod-validator";
 
 const Tasks = new Hono();
 // eslint-disable-next-line react-hooks/rules-of-hooks
 Tasks.use("/*", requireAuth);
 
-Tasks.post("/", requireAuth, handleCreateTodo);
+Tasks.post(
+  "/",
+  requireAuth,
+  zValidator("json", createTodoSchemaValidator),
+  handleCreateTodo
+);
 
 Tasks.get("/", async (c) => {
   // const seedTasks = {
@@ -20,7 +27,7 @@ Tasks.get("/", async (c) => {
 
   // await db.insert(tasksTable).values(seedTasks);
   const res = await db.select().from(tasksTable);
-  return c.json({ res });
+  return c.json(res);
 });
 
 Tasks.get("/:name", (c) => {
